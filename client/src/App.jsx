@@ -1,15 +1,18 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from 'react';
+import { AppRouter } from './router/AppRouter.jsx';
+import { AuthProvider } from './context/AuthContext.jsx';
+import { CartProvider } from './context/CartContext.jsx';
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<h1>Welcome to MyShop</h1>} />
-        </Routes>
-      </div>
-    </Router>
+    <AuthProvider>
+      <CartProvider>
+        <AppRouter />
+      </CartProvider>
+    </AuthProvider>
   );
 }
 
 export default App;
+
+

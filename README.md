@@ -1,106 +1,41 @@
-# MyShop - E-commerce Platform
+# Sales Website
 
-Full-stack e-commerce platform built with React (Frontend) and Express (Backend).
+A full-stack template with a React (Vite) frontend and Node.js + Express + MongoDB backend.
 
-## 📁 Project Structure
+## Structure
 
-```
-myshop/
-│
-├── server/                     # 🧠 Backend (Express)
-│   ├── controllers/            # Xử lý request → gọi service → trả response
-│   ├── models/                 # Mongoose schema (hoặc ORM khác)
-│   ├── routes/                 # Định nghĩa endpoint
-│   ├── services/               # Logic nghiệp vụ (business logic)
-│   ├── utils/                  # Hàm tiện ích: JWT, email, v.v.
-│   ├── config/                 # Kết nối DB, dotenv, etc.
-│   ├── app.js                  # Cấu hình Express
-│   └── server.js               # Chạy server
-│
-├── client/                     # 💻 Frontend (React + Vite)
-│   ├── src/
-│   │   ├── components/         # Component dùng lại (Button, Navbar,…)
-│   │   ├── pages/              # Trang chính (Home, Product,…)
-│   │   ├── api/                # Gọi API (axios, fetch,…)
-│   │   ├── hooks/              # Custom hook tái sử dụng
-│   │   ├── utils/              # Format, validate, helper chung
-│   │   ├── styles/             # CSS, SCSS, Tailwind,…
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── public/
-│   ├── vite.config.js
-│   └── package.json
-│
-├── shared/                     # 🔄 Code dùng chung (nếu cần)
-│   ├── constants.js
-│   └── schemas.js
-│
-├── package.json                # Script tổng
-└── README.md
-```
+- client/ — React app (Vite)
+- server/ — Express API with MongoDB (Mongoose)
 
-## 🚀 Getting Started
+## Getting started
 
 ### Prerequisites
+- Node.js 18+
+- MongoDB running locally or a connection string
 
-- Node.js (v16 or higher)
-- MongoDB
-- npm or yarn
+### Client
+```bash
+cd client
+npm install
+npm run dev
+```
 
-### Installation
+### Server
+Create a `.env` file in `server/` with:
+```
+PORT=4000
+MONGODB_URI=mongodb://127.0.0.1:27017/sales_website
+JWT_SECRET=change_me
+```
+Then install and start:
+```bash
+cd server
+npm install
+npm run dev
+```
 
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd Sales_Website
-   ```
+- API base URL: `http://localhost:4000/api`
+- Client base URL: `http://localhost:5173`
 
-2. **Install Server Dependencies**
-   ```bash
-   cd server
-   npm install
-   ```
-
-3. **Install Client Dependencies**
-   ```bash
-   cd ../client
-   npm install
-   ```
-
-4. **Environment Setup**
-   - Copy `server/.env.example` to `server/.env`
-   - Update the environment variables
-
-### Running the Application
-
-1. **Start the Backend Server**
-   ```bash
-   cd server
-   npm run dev
-   ```
-   Server will run on http://localhost:5000
-
-2. **Start the Frontend Client**
-   ```bash
-   cd client
-   npm run dev
-   ```
-   Client will run on http://localhost:3000
-
-## 🛠️ Tech Stack
-
-### Backend
-- Express.js
-- MongoDB (Mongoose)
-- JWT Authentication
-- bcryptjs
-
-### Frontend
-- React
-- Vite
-- React Router
-- Axios
-
-## 📝 License
-
-MIT
+## Notes
+- Update `VITE_API_URL` in client environment if backend runs elsewhere.
