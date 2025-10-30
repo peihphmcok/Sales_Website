@@ -11,9 +11,13 @@ app.use(express.json());
 
 const MONGO_URI = process.env.MONGODB_URI || process.env.MONGO_URI || "mongodb://127.0.0.1:27017/sales_website";
 
+import productRoutes from "./routes/productRoutes.js";
+
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
+
+app.use("/api/products", productRoutes);
 
 const PORT = process.env.PORT || 5000;
 
@@ -28,7 +32,3 @@ mongoose
     process.exit(1);
   });
 
-
-import productRoutes from "./routes/productRoutes.js";
-
-app.use("/api/products", productRoutes);
