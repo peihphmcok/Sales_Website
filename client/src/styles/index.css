@@ -1,40 +1,102 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-amber-50;
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+}
 
 @layer components {
   .container {
-    max-width: 1100px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 16px;
   }
   
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 24px;
   }
   
   .product-card {
-    border: 1px solid #eee;
-    padding: 12px;
-    border-radius: 8px;
+    @apply bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300;
+    border: 1px solid #fef3c7;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-4px);
   }
   
   .product-card img {
     width: 100%;
-    height: 160px;
+    height: 200px;
     object-fit: cover;
-    border-radius: 6px;
+  }
+  
+  .product-card-content {
+    @apply p-4;
   }
   
   .btn {
-    display: inline-block;
-    background: #2563eb;
+    @apply inline-block px-6 py-3 rounded-lg font-semibold transition-all duration-300;
+    background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
     color: #fff;
-    padding: 10px 16px;
-    border-radius: 6px;
     text-decoration: none;
+  }
+  
+  .btn:hover {
+    @apply shadow-lg;
+    transform: translateY(-2px);
+  }
+  
+  .btn-primary {
+    @apply bg-amber-900 hover:bg-amber-800 text-white;
+  }
+  
+  .btn-secondary {
+    @apply bg-orange-600 hover:bg-orange-700 text-white;
+  }
+  
+  .section-title {
+    @apply text-4xl font-bold text-amber-900 mb-4;
+  }
+  
+  .section-subtitle {
+    @apply text-lg text-gray-600 mb-8;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-amber-100;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-amber-700 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-amber-800;
+  }
+  
+  /* Line clamp utility */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 
