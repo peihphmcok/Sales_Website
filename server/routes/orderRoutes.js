@@ -8,5 +8,3 @@ router.post('/', requireAuth, createOrder);
 router.get('/', requireAuth, listOrders);
 
 export default router;
-
-
