@@ -15,6 +15,7 @@ import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 
 app.get("/", (req, res) => {
   res.send("Server is running");
@@ -24,6 +25,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
 
@@ -37,8 +39,3 @@ mongoose
     console.error("MongoDB error", err);
     process.exit(1);
   });
-
-
-import productRoutes from "./routes/productRoutes.js";
-
-app.use("/api/products", productRoutes);
