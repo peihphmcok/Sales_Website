@@ -110,27 +110,7 @@ export default function Home() {
           {featuredProducts.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
               {featuredProducts.map((product) => (
-                <div key={product._id} className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition">
-                  <div className="h-48 bg-gradient-to-br from-amber-100 to-orange-200 flex items-center justify-center">
-                    {product.image ? (
-                      <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="text-6xl">☕</div>
-                    )}
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-bold text-amber-900 mb-2">{product.name}</h3>
-                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.description}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-lg font-bold text-orange-600">
-                        {product.price?.toLocaleString('vi-VN')}đ
-                      </span>
-                      <button className="bg-amber-900 text-white px-4 py-2 rounded-lg hover:bg-amber-800 transition text-sm">
-                        Thêm vào giỏ
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <ProductCard key={product._id} product={product} />
               ))}
             </div>
           ) : (

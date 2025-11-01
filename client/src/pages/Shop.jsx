@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { productAPI } from '../services/api.js';
+import ProductCard from '../components/ProductCard.jsx';
 
 export default function Shop() {
   const [products, setProducts] = useState([]);
@@ -101,46 +102,7 @@ export default function Shop() {
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {filteredProducts.map((product) => (
-                  <div 
-                    key={product._id} 
-                    className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-amber-100 hover:-translate-y-2"
-                  >
-                    <div className="h-56 bg-gradient-to-br from-amber-100 to-orange-200 flex items-center justify-center overflow-hidden">
-                      {product.image ? (
-                        <img 
-                          src={product.image} 
-                          alt={product.name} 
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="text-7xl">☕</div>
-                      )}
-                    </div>
-                    <div className="p-5">
-                      <div className="mb-2">
-                        {product.category && (
-                          <span className="inline-block bg-amber-100 text-amber-800 text-xs px-3 py-1 rounded-full font-semibold">
-                            {product.category}
-                          </span>
-                        )}
-                      </div>
-                      <h3 className="text-xl font-bold text-amber-900 mb-2">
-                        {product.name}
-                      </h3>
-                      <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-                        {product.description || 'Cà phê chất lượng cao, hương vị đậm đà'}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-2xl font-bold text-orange-600">
-                          {product.price?.toLocaleString('vi-VN')}đ
-                        </span>
-                        <button className="bg-amber-900 text-white px-5 py-2 rounded-lg hover:bg-amber-800 transition font-semibold flex items-center gap-2">
-                          <span>🛒</span>
-                          <span>Thêm</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  <ProductCard key={product._id} product={product} />
                 ))}
               </div>
             </>

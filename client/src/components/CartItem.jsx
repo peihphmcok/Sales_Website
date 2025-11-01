@@ -1,24 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useCart } from '../context/CartContext';
+import { useToast } from '../context/ToastContext';
 
-export default function CartItem({ item, onRemove, onUpdateQuantity }) {
+export default function CartItem({ item }) {
+  const { updateCartItem, removeFromCart } = useCart();
+  const { showToast } = useToast();
+  const [isUpdating, setIsUpdating] = useState(false);
+  
   const product = item.productId || {};
   const quantity = item.quantity || 1;
 
-  const handleIncrease = () => {
-    if (onUpdateQuantity) {
-      onUpdateQuantity(product._id, quantity + 1);
+  const handleIncrease = async () => {
+    setIsUpdating(true);
+    const result = await updateCartItem(product._id, quantity + 1);
+    setIsUpdating(false);
+    if (!result.success) {
+      showToast(result.message, 'error');
     }
   };
 
-  const handleDecrease = () => {
-    if (quantity > 1 && onUpdateQuantity) {
-      onUpdateQuantity(product._id, quantity - 1);
+  const handleDecrease = async () => {
+    if (quantity <= 1) return;
+    setIsUpdating(true);
+    const result = await updateCartItem(product._id, quantity - 1);
+    setIsUpdating(false);
+    if (!result.success) {
+      showToast(result.message, 'error');
     }
   };
 
-  const handleRemove = () => {
-    if (onRemove) {
-      onRemove(product._id);
+  const handleRemove = async () => {
+    const confirmRemove = window.confirm(`Xóa "${product.name}" khỏi giỏ hàng?`);
+    if (!confirmRemove) return;
+    
+    const result = await removeFromCart(product._id);
+    if (result.success) {
+      showToast('Đã xóa sản phẩm khỏi giỏ hàng', 'success');
+    } else {
+      showToast(result.message, 'error');
     }
   };
 
@@ -39,15 +58,16 @@ export default function CartItem({ item, onRemove, onUpdateQuantity }) {
           <div className="flex items-center gap-2 bg-amber-50 rounded-lg p-1">
             <button
               onClick={handleDecrease}
-              className="w-7 h-7 bg-white rounded hover:bg-amber-100 transition font-bold text-amber-900"
-              disabled={quantity <= 1}
+              className="w-7 h-7 bg-white rounded hover:bg-amber-100 transition font-bold text-amber-900 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={quantity <= 1 || isUpdating}
             >
               −
             </button>
             <span className="w-8 text-center font-semibold">{quantity}</span>
             <button
               onClick={handleIncrease}
-              className="w-7 h-7 bg-white rounded hover:bg-amber-100 transition font-bold text-amber-900"
+              className="w-7 h-7 bg-white rounded hover:bg-amber-100 transition font-bold text-amber-900 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isUpdating}
             >
               +
             </button>

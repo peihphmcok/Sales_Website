@@ -74,6 +74,18 @@ export const cartAPI = {
     return response.json();
   },
 
+  updateCartItem: async (productId, quantity) => {
+    const response = await fetch(`${API_URL}/cart`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeader(),
+      },
+      body: JSON.stringify({ productId, quantity }),
+    });
+    return response.json();
+  },
+
   removeFromCart: async (productId) => {
     const response = await fetch(`${API_URL}/cart`, {
       method: 'DELETE',

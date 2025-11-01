@@ -40,19 +40,38 @@ export const CartProvider = ({ children }) => {
   const addToCart = async (productId, quantity = 1) => {
     try {
       const data = await cartAPI.addToCart(productId, quantity);
-      setCart(data);
+      if (data && data.items) {
+        setCart(data);
+      }
       return { success: true, message: 'Đã thêm vào giỏ hàng' };
     } catch (error) {
+      console.error('Add to cart error:', error);
       return { success: false, message: 'Không thể thêm vào giỏ hàng' };
+    }
+  };
+
+  const updateCartItem = async (productId, quantity) => {
+    try {
+      const data = await cartAPI.updateCartItem(productId, quantity);
+      if (data && data.items) {
+        setCart(data);
+      }
+      return { success: true, message: 'Đã cập nhật giỏ hàng' };
+    } catch (error) {
+      console.error('Update cart error:', error);
+      return { success: false, message: 'Không thể cập nhật giỏ hàng' };
     }
   };
 
   const removeFromCart = async (productId) => {
     try {
       const data = await cartAPI.removeFromCart(productId);
-      setCart(data);
+      if (data && data.items) {
+        setCart(data);
+      }
       return { success: true, message: 'Đã xóa khỏi giỏ hàng' };
     } catch (error) {
+      console.error('Remove from cart error:', error);
       return { success: false, message: 'Không thể xóa khỏi giỏ hàng' };
     }
   };
@@ -62,14 +81,24 @@ export const CartProvider = ({ children }) => {
   };
 
   const getCartTotal = () => {
+    if (!cart || !cart.items || !Array.isArray(cart.items)) {
+      return 0;
+    }
+    
     return cart.items.reduce((total, item) => {
-      const price = item.productId?.price || 0;
+      // Check if productId is an object (populated) or just an ID string
+      const price = typeof item.productId === 'object' && item.productId !== null 
+        ? (item.productId.price || 0)
+        : 0;
       const quantity = item.quantity || 0;
-      return total + price * quantity;
+      return total + (price * quantity);
     }, 0);
   };
 
   const getCartCount = () => {
+    if (!cart || !cart.items || !Array.isArray(cart.items)) {
+      return 0;
+    }
     return cart.items.reduce((count, item) => count + (item.quantity || 0), 0);
   };
 
@@ -77,6 +106,7 @@ export const CartProvider = ({ children }) => {
     cart,
     loading,
     addToCart,
+    updateCartItem,
     removeFromCart,
     clearCart,
     loadCart,

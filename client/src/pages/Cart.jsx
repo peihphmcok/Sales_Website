@@ -69,7 +69,6 @@ export default function Cart() {
               <CartItem
                 key={item.productId?._id || item._id}
                 item={item}
-                onRemove={removeFromCart}
               />
             ))}
           </div>
